@@ -192,7 +192,10 @@
         tipTitle: '🧠 Tipp',
         tipText: 'Dein Tutor hilft dir zu denken, nicht nur zu antworten. Wenn du etwas nicht verstehst, sag: <em>„Kannst du es einfacher erklären?"</em>',
         copySuccess: '✅ Prompt kopiert! Jetzt in ChatGPT oder Gemini einfügen.',
-        copyError: 'Bitte markiere und kopiere den Text manuell.'
+        copyError: 'Bitte markiere und kopiere den Text manuell.',
+        chatgptSteps: '<li>Gehe zu <a href="https://chat.openai.com" target="_blank">chat.openai.com</a>.</li><li>Starte einen neuen Chat.</li><li>Füge den kopierten Prompt als erste Nachricht ein (oben im Chat).</li><li>Schreibe dann deine Aufgabe oder Frage, z. B.: <em>„Hilf mir bei meiner Mathe-Hausaufgabe über Brüche!"</em></li>',
+        customSteps: '<li>Klicke auf dein Profil → "Custom Instructions".</li><li>Füge den kopierten Text ins Feld „Was soll der Assistent über dich wissen?" ein.</li><li>Speichern → fertig!</li>',
+        geminiSteps: '<li>Gehe zu <a href="https://gemini.google.com" target="_blank">gemini.google.com</a>.</li><li>Starte einen neuen Chat.</li><li>Füge deinen Prompt als erste Nachricht ein.</li><li>Dann stelle deine Schulfrage.</li>'
       },
       en: {
         title: '👩🏫 Your Tutor System Prompt',
@@ -227,7 +230,10 @@
         tipTitle: '🧠 Tip',
         tipText: 'Your tutor helps you think, not just answer. If you don\'t understand something, say: <em>"Can you explain it more simply?"</em>',
         copySuccess: '✅ Prompt copied! Now paste it into ChatGPT or Gemini.',
-        copyError: 'Please select and copy the text manually.'
+        copyError: 'Please select and copy the text manually.',
+        chatgptSteps: '<li>Go to <a href="https://chat.openai.com" target="_blank">chat.openai.com</a>.</li><li>Start a new chat.</li><li>Paste the copied prompt as your first message (at the top of the chat).</li><li>Then write your task or question, e.g.: <em>"Help me with my math homework about fractions!"</em></li>',
+        customSteps: '<li>Click on your profile → "Custom Instructions".</li><li>Paste the copied text into the field "What would you like ChatGPT to know about you?"</li><li>Save → done!</li>',
+        geminiSteps: '<li>Go to <a href="https://gemini.google.com" target="_blank">gemini.google.com</a>.</li><li>Start a new chat.</li><li>Paste your prompt as the first message.</li><li>Then ask your school question.</li>'
       }
     };
 
@@ -268,6 +274,11 @@
       document.getElementById('gemini-title').textContent = t.geminiTitle;
       document.getElementById('tip-title').textContent = t.tipTitle;
       document.getElementById('tip-text').innerHTML = t.tipText;
+      
+      // Update instruction lists
+      document.getElementById('chatgpt-steps').innerHTML = t.chatgptSteps;
+      document.getElementById('custom-steps').innerHTML = t.customSteps;
+      document.getElementById('gemini-steps').innerHTML = t.geminiSteps;
       
       const select = document.getElementById('learnStyle');
       select.innerHTML = '';
@@ -387,6 +398,10 @@ SCHÜLER-PERSONA (DEINE ANGABEN AUSFÜLLEN):
     // Load saved data on page load
     window.addEventListener('load', loadData);
   </script>
+
+  <footer style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #ddd; font-size: 0.85rem; color: #666; text-align: center;">
+    <p>This project was created as part of <a href="https://sevdesk.de" target="_blank">SevDesk's</a> 1% Pledge program, where each SevDesk employee can dedicate 3 days per year to work with non-profit organizations. This project was developed in collaboration with <a href="https://www.redi-school.org/kids-and-teens-courses/berlin/dkp/digital-heroes-ninjas" target="_blank">ReDI School Berlin's Kids Program</a>.</p>
+  </footer>
 
 </body>
 </html>
