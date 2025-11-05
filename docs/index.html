@@ -71,6 +71,25 @@
 
   <p id="description">Fülle zuerst die Felder unten aus. Danach kannst du den fertigen Prompt kopieren und in ChatGPT oder Gemini benutzen!</p>
 
+  <div class="section" id="demo-section">
+    <h2 id="demo-title">🎯 Sieh den Unterschied</h2>
+    <p id="demo-description">Hier siehst du, wie sich die Antworten unterscheiden:</p>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+      <div style="background: #fff; border-radius: 10px; padding: 1.5rem; border: 1px solid #ddd;">
+        <h3 style="color: #d32f2f; margin-top: 0;" id="without-prompt">❌ Ohne Tutor-Prompt</h3>
+        <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; font-weight: bold;" id="demo-question-1">Frage: Was ist Photosynthese?</div>
+        <div style="color: #666; font-size: 0.9rem;" id="demo-answer-without">Photosynthese ist der Prozess, bei dem Pflanzen Lichtenergie in chemische Energie umwandeln. Dabei nehmen sie Kohlendioxid aus der Luft und Wasser aus dem Boden auf und produzieren mit Hilfe von Chlorophyll und Sonnenlicht Glucose und Sauerstoff. Die chemische Gleichung lautet: 6CO₂ + 6H₂O + Lichtenergie → C₆H₁₂O₆ + 6O₂.</div>
+      </div>
+      
+      <div style="background: #fff; border-radius: 10px; padding: 1.5rem; border: 1px solid #ddd;">
+        <h3 style="color: #2e7d32; margin-top: 0;" id="with-prompt">✅ Mit Tutor-Prompt</h3>
+        <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; font-weight: bold;" id="demo-question-2">Frage: Was ist Photosynthese?</div>
+        <div style="color: #666; font-size: 0.9rem;" id="demo-answer-with">Das ist eine super Frage! 🌱 Lass uns das zusammen herausfinden. Stell dir vor, du baust in Minecraft und brauchst Energie für deine Projekte. Weißt du, was Pflanzen brauchen, um zu wachsen? Denk mal an einen Baum - was siehst du um ihn herum? Und was passiert, wenn du eine Pflanze ins Dunkle stellst? Lass uns Schritt für Schritt überlegen, wie Pflanzen ihre "Energie" bekommen!</div>
+      </div>
+    </div>
+  </div>
+
   <div class="section" id="form-section">
     <h2 id="form-title">🧩 Fülle deine Informationen ein</h2>
     
@@ -195,7 +214,14 @@
         copyError: 'Bitte markiere und kopiere den Text manuell.',
         chatgptSteps: '<li>Gehe zu <a href="https://chat.openai.com" target="_blank">chat.openai.com</a>.</li><li>Starte einen neuen Chat.</li><li>Füge den kopierten Prompt als erste Nachricht ein (oben im Chat).</li><li>Schreibe dann deine Aufgabe oder Frage, z. B.: <em>„Hilf mir bei meiner Mathe-Hausaufgabe über Brüche!"</em></li>',
         customSteps: '<li>Klicke auf dein Profil → "Custom Instructions".</li><li>Füge den kopierten Text ins Feld „Was soll der Assistent über dich wissen?" ein.</li><li>Speichern → fertig!</li>',
-        geminiSteps: '<li>Gehe zu <a href="https://gemini.google.com" target="_blank">gemini.google.com</a>.</li><li>Starte einen neuen Chat.</li><li>Füge deinen Prompt als erste Nachricht ein.</li><li>Dann stelle deine Schulfrage.</li>'
+        geminiSteps: '<li>Gehe zu <a href="https://gemini.google.com" target="_blank">gemini.google.com</a>.</li><li>Starte einen neuen Chat.</li><li>Füge deinen Prompt als erste Nachricht ein.</li><li>Dann stelle deine Schulfrage.</li>',
+        demoTitle: '🎯 Sieh den Unterschied',
+        demoDescription: 'Hier siehst du, wie sich die Antworten unterscheiden:',
+        withoutPrompt: '❌ Ohne Tutor-Prompt',
+        withPrompt: '✅ Mit Tutor-Prompt',
+        demoQuestion: 'Frage: Was ist Photosynthese?',
+        demoAnswerWithout: 'Photosynthese ist der Prozess, bei dem Pflanzen Lichtenergie in chemische Energie umwandeln. Dabei nehmen sie Kohlendioxid aus der Luft und Wasser aus dem Boden auf und produzieren mit Hilfe von Chlorophyll und Sonnenlicht Glucose und Sauerstoff. Die chemische Gleichung lautet: 6CO₂ + 6H₂O + Lichtenergie → C₆H₁₂O₆ + 6O₂.',
+        demoAnswerWith: 'Das ist eine super Frage! 🌱 Lass uns das zusammen herausfinden. Stell dir vor, du baust in Minecraft und brauchst Energie für deine Projekte. Weißt du, was Pflanzen brauchen, um zu wachsen? Denk mal an einen Baum - was siehst du um ihn herum? Und was passiert, wenn du eine Pflanze ins Dunkle stellst? Lass uns Schritt für Schritt überlegen, wie Pflanzen ihre "Energie" bekommen!'
       },
       en: {
         title: '👩🏫 Your Tutor System Prompt',
@@ -233,7 +259,14 @@
         copyError: 'Please select and copy the text manually.',
         chatgptSteps: '<li>Go to <a href="https://chat.openai.com" target="_blank">chat.openai.com</a>.</li><li>Start a new chat.</li><li>Paste the copied prompt as your first message (at the top of the chat).</li><li>Then write your task or question, e.g.: <em>"Help me with my math homework about fractions!"</em></li>',
         customSteps: '<li>Click on your profile → "Custom Instructions".</li><li>Paste the copied text into the field "What would you like ChatGPT to know about you?"</li><li>Save → done!</li>',
-        geminiSteps: '<li>Go to <a href="https://gemini.google.com" target="_blank">gemini.google.com</a>.</li><li>Start a new chat.</li><li>Paste your prompt as the first message.</li><li>Then ask your school question.</li>'
+        geminiSteps: '<li>Go to <a href="https://gemini.google.com" target="_blank">gemini.google.com</a>.</li><li>Start a new chat.</li><li>Paste your prompt as the first message.</li><li>Then ask your school question.</li>',
+        demoTitle: '🎯 See the Difference',
+        demoDescription: 'Here you can see how the answers differ:',
+        withoutPrompt: '❌ Without Tutor Prompt',
+        withPrompt: '✅ With Tutor Prompt',
+        demoQuestion: 'Question: What is photosynthesis?',
+        demoAnswerWithout: 'Photosynthesis is the process by which plants convert light energy into chemical energy. They take carbon dioxide from the air and water from the soil and produce glucose and oxygen using chlorophyll and sunlight. The chemical equation is: 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂.',
+        demoAnswerWith: 'That\'s a great question! 🌱 Let\'s figure this out together. Imagine you\'re building in Minecraft and need energy for your projects. Do you know what plants need to grow? Think about a tree - what do you see around it? And what happens when you put a plant in the dark? Let\'s think step by step about how plants get their "energy"!'
       }
     };
 
@@ -274,6 +307,16 @@
       document.getElementById('gemini-title').textContent = t.geminiTitle;
       document.getElementById('tip-title').textContent = t.tipTitle;
       document.getElementById('tip-text').innerHTML = t.tipText;
+      
+      // Update demo section
+      document.getElementById('demo-title').textContent = t.demoTitle;
+      document.getElementById('demo-description').textContent = t.demoDescription;
+      document.getElementById('without-prompt').textContent = t.withoutPrompt;
+      document.getElementById('with-prompt').textContent = t.withPrompt;
+      document.getElementById('demo-question-1').textContent = t.demoQuestion;
+      document.getElementById('demo-question-2').textContent = t.demoQuestion;
+      document.getElementById('demo-answer-without').textContent = t.demoAnswerWithout;
+      document.getElementById('demo-answer-with').textContent = t.demoAnswerWith;
       
       // Update instruction lists
       document.getElementById('chatgpt-steps').innerHTML = t.chatgptSteps;
