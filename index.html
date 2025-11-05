@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tutor Prompt für Kinder</title>
+  <style>
+    body {
+      font-family: system-ui, Segoe UI, Roboto, Arial;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f4f9ff;
+      color: #222;
+    }
+    h1, h2 { color: #004a9f; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .lang-toggle { background: #0077ff; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; }
+    .lang-toggle:hover { background: #005fcc; }
+    .progress-bar { background: #e0e0e0; border-radius: 10px; height: 8px; margin: 2rem 0; }
+    .progress { background: #0077ff; height: 100%; border-radius: 10px; transition: width 0.3s; }
+    .steps { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.9rem; }
+    .step { color: #666; }
+    .step.active { color: #0077ff; font-weight: bold; }
+    .form-group { margin: 1rem 0; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+    .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; }
+    pre {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      white-space: pre-wrap;
+      border: 1px solid #ddd;
+      font-size: 0.9rem;
+      display: none;
+    }
+    pre.show { display: block; }
+    button {
+      margin: 10px 5px 10px 0;
+      padding: 10px 18px;
+      font-size: 1rem;
+      background: #0077ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background: #005fcc; }
+    button:disabled { background: #ccc; cursor: not-allowed; }
+    .section { margin-top: 2rem; }
+    ol li { margin-bottom: 0.5rem; }
+    .success { color: green; font-weight: 600; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1 id="title">👩🏫 Dein Tutor-Systemprompt</h1>
+    <button class="lang-toggle" onclick="toggleLanguage()">🌐 English</button>
+  </div>
+
+  <div class="steps">
+    <span class="step active" id="step1">1. Ausfüllen</span>
+    <span class="step" id="step2">2. Kopieren</span>
+    <span class="step" id="step3">3. Verwenden</span>
+  </div>
+  <div class="progress-bar">
+    <div class="progress" id="progress" style="width: 33%"></div>
+  </div>
+
+  <p id="description">Fülle zuerst die Felder unten aus. Danach kannst du den fertigen Prompt kopieren und in ChatGPT oder Gemini benutzen!</p>
+
+  <div class="section" id="form-section">
+    <h2 id="form-title">🧩 Fülle deine Informationen ein</h2>
+    
+    <div class="form-group">
+      <label for="grade" id="grade-label">Klassenstufe:</label>
+      <input type="text" id="grade" placeholder="z.B. 5. Klasse">
+    </div>
+    
+    <div class="form-group">
+      <label for="mainLang" id="mainLang-label">Hauptsprache:</label>
+      <input type="text" id="mainLang" placeholder="z.B. Deutsch">
+    </div>
+    
+    <div class="form-group">
+      <label for="secondLang" id="secondLang-label">Zweitsprache:</label>
+      <input type="text" id="secondLang" placeholder="z.B. Englisch">
+    </div>
+    
+    <div class="form-group">
+      <label for="favSubjects" id="favSubjects-label">Lieblingsfächer:</label>
+      <input type="text" id="favSubjects" placeholder="z.B. Geschichte, Biologie">
+    </div>
+    
+    <div class="form-group">
+      <label for="helpSubjects" id="helpSubjects-label">Fächer, bei denen ich Hilfe brauche:</label>
+      <input type="text" id="helpSubjects" placeholder="z.B. Mathe">
+    </div>
+    
+    <div class="form-group">
+      <label for="learnStyle" id="learnStyle-label">Bevorzugter Lernstil:</label>
+      <select id="learnStyle">
+        <option value="">Wähle eine Option</option>
+        <option value="geschichtenbasiert">Geschichtenbasiert</option>
+        <option value="visuell">Visuell</option>
+        <option value="Frage-Antwort">Frage-Antwort</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="theme" id="theme-label">Themenwelt für lustige Beispiele (optional):</label>
+      <input type="text" id="theme" placeholder="z.B. Minecraft, Weltall, Tiere">
+    </div>
+    
+    <button onclick="generatePrompt()" id="generate-btn">✨ Prompt erstellen</button>
+  </div>
+
+  <div class="section hidden" id="prompt-section">
+    <h2 id="prompt-title">📋 Dein personalisierter Prompt</h2>
+    <pre id="prompt"></pre>
+    <button id="copyBtn" onclick="copyPrompt()">📋 Prompt kopieren</button>
+    <button onclick="editPrompt()" id="edit-btn">✏️ Bearbeiten</button>
+    <div id="msg" class="success"></div>
+  </div>
+
+  <div class="section hidden" id="instructions-section">
+    <h2 id="instructions-title">💡 Wie benutze ich meinen Prompt?</h2>
+
+    <h3 id="chatgpt-title">👉 In ChatGPT (Website)</h3>
+    <ol id="chatgpt-steps">
+      <li>Gehe zu <a href="https://chat.openai.com" target="_blank">chat.openai.com</a>.</li>
+      <li>Starte einen neuen Chat.</li>
+      <li>Füge den kopierten Prompt als erste Nachricht ein (oben im Chat).</li>
+      <li>Schreibe dann deine Aufgabe oder Frage, z. B.: <em>„Hilf mir bei meiner Mathe-Hausaufgabe über Brüche!"</em></li>
+    </ol>
+
+    <h3 id="custom-title">⚙️ In ChatGPT (mit Custom Instructions)</h3>
+    <ol id="custom-steps">
+      <li>Klicke auf dein Profil → "Custom Instructions".</li>
+      <li>Füge den kopierten Text ins Feld „Was soll der Assistent über dich wissen?" ein.</li>
+      <li>Speichern → fertig!</li>
+    </ol>
+
+    <h3 id="gemini-title">🤖 In Google Gemini</h3>
+    <ol id="gemini-steps">
+      <li>Gehe zu <a href="https://gemini.google.com" target="_blank">gemini.google.com</a>.</li>
+      <li>Starte einen neuen Chat.</li>
+      <li>Füge deinen Prompt als erste Nachricht ein.</li>
+      <li>Dann stelle deine Schulfrage.</li>
+    </ol>
+
+    <h3 id="tip-title">🧠 Tipp</h3>
+    <p id="tip-text">Dein Tutor hilft dir zu denken, nicht nur zu antworten. Wenn du etwas nicht verstehst, sag: <em>„Kannst du es einfacher erklären?"</em></p>
+  </div>
+
+  <script>
+    let currentLang = 'de';
+    
+    const translations = {
+      de: {
+        title: '👩🏫 Dein Tutor-Systemprompt',
+        langToggle: '🌐 English',
+        step1: '1. Ausfüllen',
+        step2: '2. Kopieren',
+        step3: '3. Verwenden',
+        description: 'Fülle zuerst die Felder unten aus. Danach kannst du den fertigen Prompt kopieren und in ChatGPT oder Gemini benutzen!',
+        formTitle: '🧩 Fülle deine Informationen ein',
+        gradeLabel: 'Klassenstufe:',
+        gradePlaceholder: 'z.B. 5. Klasse',
+        mainLangLabel: 'Hauptsprache:',
+        mainLangPlaceholder: 'z.B. Deutsch',
+        secondLangLabel: 'Zweitsprache:',
+        secondLangPlaceholder: 'z.B. Englisch',
+        favSubjectsLabel: 'Lieblingsfächer:',
+        favSubjectsPlaceholder: 'z.B. Geschichte, Biologie',
+        helpSubjectsLabel: 'Fächer, bei denen ich Hilfe brauche:',
+        helpSubjectsPlaceholder: 'z.B. Mathe',
+        learnStyleLabel: 'Bevorzugter Lernstil:',
+        learnStyleOptions: ['Wähle eine Option', 'Geschichtenbasiert', 'Visuell', 'Frage-Antwort'],
+        themeLabel: 'Themenwelt für lustige Beispiele (optional):',
+        themePlaceholder: 'z.B. Minecraft, Weltall, Tiere',
+        generateBtn: '✨ Prompt erstellen',
+        promptTitle: '📋 Dein personalisierter Prompt',
+        copyBtn: '📋 Prompt kopieren',
+        editBtn: '✏️ Bearbeiten',
+        instructionsTitle: '💡 Wie benutze ich meinen Prompt?',
+        chatgptTitle: '👉 In ChatGPT (Website)',
+        customTitle: '⚙️ In ChatGPT (mit Custom Instructions)',
+        geminiTitle: '🤖 In Google Gemini',
+        tipTitle: '🧠 Tipp',
+        tipText: 'Dein Tutor hilft dir zu denken, nicht nur zu antworten. Wenn du etwas nicht verstehst, sag: <em>„Kannst du es einfacher erklären?"</em>',
+        copySuccess: '✅ Prompt kopiert! Jetzt in ChatGPT oder Gemini einfügen.',
+        copyError: 'Bitte markiere und kopiere den Text manuell.'
+      },
+      en: {
+        title: '👩🏫 Your Tutor System Prompt',
+        langToggle: '🌐 Deutsch',
+        step1: '1. Fill Out',
+        step2: '2. Copy',
+        step3: '3. Use',
+        description: 'First fill out the fields below. Then you can copy the finished prompt and use it in ChatGPT or Gemini!',
+        formTitle: '🧩 Fill in your information',
+        gradeLabel: 'Grade:',
+        gradePlaceholder: 'e.g. 5th grade',
+        mainLangLabel: 'Main language:',
+        mainLangPlaceholder: 'e.g. German',
+        secondLangLabel: 'Second language:',
+        secondLangPlaceholder: 'e.g. English',
+        favSubjectsLabel: 'Favorite subjects:',
+        favSubjectsPlaceholder: 'e.g. History, Biology',
+        helpSubjectsLabel: 'Subjects I need help with:',
+        helpSubjectsPlaceholder: 'e.g. Math',
+        learnStyleLabel: 'Preferred learning style:',
+        learnStyleOptions: ['Choose an option', 'Story-based', 'Visual', 'Question-Answer'],
+        themeLabel: 'Theme world for fun examples (optional):',
+        themePlaceholder: 'e.g. Minecraft, Space, Animals',
+        generateBtn: '✨ Create Prompt',
+        promptTitle: '📋 Your personalized prompt',
+        copyBtn: '📋 Copy Prompt',
+        editBtn: '✏️ Edit',
+        instructionsTitle: '💡 How do I use my prompt?',
+        chatgptTitle: '👉 In ChatGPT (Website)',
+        customTitle: '⚙️ In ChatGPT (with Custom Instructions)',
+        geminiTitle: '🤖 In Google Gemini',
+        tipTitle: '🧠 Tip',
+        tipText: 'Your tutor helps you think, not just answer. If you don\'t understand something, say: <em>"Can you explain it more simply?"</em>',
+        copySuccess: '✅ Prompt copied! Now paste it into ChatGPT or Gemini.',
+        copyError: 'Please select and copy the text manually.'
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'de' ? 'en' : 'de';
+      updateLanguage();
+    }
+
+    function updateLanguage() {
+      const t = translations[currentLang];
+      document.getElementById('title').textContent = t.title;
+      document.querySelector('.lang-toggle').textContent = t.langToggle;
+      document.getElementById('step1').textContent = t.step1;
+      document.getElementById('step2').textContent = t.step2;
+      document.getElementById('step3').textContent = t.step3;
+      document.getElementById('description').textContent = t.description;
+      document.getElementById('form-title').textContent = t.formTitle;
+      document.getElementById('grade-label').textContent = t.gradeLabel;
+      document.getElementById('grade').placeholder = t.gradePlaceholder;
+      document.getElementById('mainLang-label').textContent = t.mainLangLabel;
+      document.getElementById('mainLang').placeholder = t.mainLangPlaceholder;
+      document.getElementById('secondLang-label').textContent = t.secondLangLabel;
+      document.getElementById('secondLang').placeholder = t.secondLangPlaceholder;
+      document.getElementById('favSubjects-label').textContent = t.favSubjectsLabel;
+      document.getElementById('favSubjects').placeholder = t.favSubjectsPlaceholder;
+      document.getElementById('helpSubjects-label').textContent = t.helpSubjectsLabel;
+      document.getElementById('helpSubjects').placeholder = t.helpSubjectsPlaceholder;
+      document.getElementById('learnStyle-label').textContent = t.learnStyleLabel;
+      document.getElementById('theme-label').textContent = t.themeLabel;
+      document.getElementById('theme').placeholder = t.themePlaceholder;
+      document.getElementById('generate-btn').textContent = t.generateBtn;
+      document.getElementById('prompt-title').textContent = t.promptTitle;
+      document.getElementById('copyBtn').textContent = t.copyBtn;
+      document.getElementById('edit-btn').textContent = t.editBtn;
+      document.getElementById('instructions-title').textContent = t.instructionsTitle;
+      document.getElementById('chatgpt-title').textContent = t.chatgptTitle;
+      document.getElementById('custom-title').textContent = t.customTitle;
+      document.getElementById('gemini-title').textContent = t.geminiTitle;
+      document.getElementById('tip-title').textContent = t.tipTitle;
+      document.getElementById('tip-text').innerHTML = t.tipText;
+      
+      const select = document.getElementById('learnStyle');
+      select.innerHTML = '';
+      t.learnStyleOptions.forEach((option, index) => {
+        const opt = document.createElement('option');
+        opt.value = index === 0 ? '' : (currentLang === 'de' ? 
+          ['', 'geschichtenbasiert', 'visuell', 'Frage-Antwort'][index] :
+          ['', 'story-based', 'visual', 'question-answer'][index]);
+        opt.textContent = option;
+        select.appendChild(opt);
+      });
+    }
+
+    function saveData() {
+      const data = {
+        grade: document.getElementById('grade').value,
+        mainLang: document.getElementById('mainLang').value,
+        secondLang: document.getElementById('secondLang').value,
+        favSubjects: document.getElementById('favSubjects').value,
+        helpSubjects: document.getElementById('helpSubjects').value,
+        learnStyle: document.getElementById('learnStyle').value,
+        theme: document.getElementById('theme').value,
+        lang: currentLang
+      };
+      localStorage.setItem('tutorPromptData', JSON.stringify(data));
+    }
+
+    function loadData() {
+      const saved = localStorage.getItem('tutorPromptData');
+      if (saved) {
+        const data = JSON.parse(saved);
+        document.getElementById('grade').value = data.grade || '';
+        document.getElementById('mainLang').value = data.mainLang || '';
+        document.getElementById('secondLang').value = data.secondLang || '';
+        document.getElementById('favSubjects').value = data.favSubjects || '';
+        document.getElementById('helpSubjects').value = data.helpSubjects || '';
+        document.getElementById('learnStyle').value = data.learnStyle || '';
+        document.getElementById('theme').value = data.theme || '';
+        if (data.lang) {
+          currentLang = data.lang;
+          updateLanguage();
+        }
+      }
+    }
+
+    function generatePrompt() {
+      const grade = document.getElementById('grade').value || '[z. B. 5. Klasse]';
+      const mainLang = document.getElementById('mainLang').value || '[z. B. Deutsch]';
+      const secondLang = document.getElementById('secondLang').value || '[z. B. Englisch]';
+      const favSubjects = document.getElementById('favSubjects').value || '[z. B. Geschichte, Biologie]';
+      const helpSubjects = document.getElementById('helpSubjects').value || '[z. B. Mathe]';
+      const learnStyle = document.getElementById('learnStyle').value || '[Geschichten, Bilder oder Fragen-Antworten]';
+      const theme = document.getElementById('theme').value || '[z. B. Minecraft, Weltall, Tiere]';
+
+      const prompt = `TUTOR GESETZE (NICHT ÄNDERN):
+1. ROLLE: Du bist ein freundlicher, ermutigender und unterstützender persönlicher Tutor für einen Schüler.
+2. KLASSENSTUFEN-INTERPRETATION: Die angegebene „Klassenstufe" basiert auf dem **Berliner/deutschen öffentlichen Schulsystem**. Du musst die Komplexität deiner Antworten und die Fachbegriffe entsprechend anpassen.
+3. PÄDAGOGIK: Dein Hauptziel ist es, das **logische Denken** zu fördern und aufzubauen, nicht, fertige Lösungen zu liefern. **Gib niemals die endgültige Antwort** auf Hausaufgabenfragen. Leite den Schüler stattdessen mit Hinweisen an, stelle klärende Fragen und führe ihn Schritt für Schritt durch das Problem.
+4. THEMENBEZOGENE BEISPIELE: Wenn der Schüler eine „Themenwelt für lustige Beispiele" angegeben hat, musst du dieses Thema in deine Erklärungen und Vergleiche (Analogien) einbauen, um das Lernen unterhaltsam und anschaulich zu gestalten.
+5. SICHERHEIT: Wenn der Schüler Fragen zu Gesundheit, Geld oder persönlichen Angelegenheiten stellt, musst du ihn umleiten, indem du sagst: „Das ist eine tolle Frage für deine Eltern oder eine vertrauenswürdige erwachsene Person. Ich bin nur dafür da, dir bei deinen Schularbeiten zu helfen!"
+6. SPRACHE: Verwende zum Unterrichten stets die **Hauptsprache** des Schülers. Übersetze oder erkläre in der Zweitsprache nur, wenn der Schüler ausdrücklich danach fragt oder verwirrt erscheint.
+7. TONFALL: Sei motivierend, positiv und verwende altersgerechte Sprache.
+
+---
+SCHÜLER-PERSONA (DEINE ANGABEN AUSFÜLLEN):
+* Klassenstufe: ${grade}
+* Gesprochene Hauptsprache: ${mainLang}
+* Gesprochene Zweitsprache: ${secondLang}
+* Lieblingsfächer: ${favSubjects}
+* Fächer mit Hilfebedarf: ${helpSubjects}
+* Bevorzugter Lernstil: ${learnStyle}
+* Themenwelt für lustige Beispiele: ${theme}`;
+
+      document.getElementById('prompt').textContent = prompt;
+      document.getElementById('form-section').classList.add('hidden');
+      document.getElementById('prompt-section').classList.remove('hidden');
+      document.getElementById('instructions-section').classList.remove('hidden');
+      
+      document.getElementById('step1').classList.remove('active');
+      document.getElementById('step2').classList.add('active');
+      document.getElementById('progress').style.width = '66%';
+      
+      saveData();
+    }
+
+    function editPrompt() {
+      document.getElementById('form-section').classList.remove('hidden');
+      document.getElementById('prompt-section').classList.add('hidden');
+      document.getElementById('instructions-section').classList.add('hidden');
+      
+      document.getElementById('step2').classList.remove('active');
+      document.getElementById('step3').classList.remove('active');
+      document.getElementById('step1').classList.add('active');
+      document.getElementById('progress').style.width = '33%';
+    }
+
+    async function copyPrompt() {
+      const text = document.getElementById('prompt').textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        const t = translations[currentLang];
+        document.getElementById('msg').textContent = t.copySuccess;
+        
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.add('active');
+        document.getElementById('progress').style.width = '100%';
+      } catch (err) {
+        const t = translations[currentLang];
+        document.getElementById('msg').textContent = t.copyError;
+      }
+    }
+
+    // Auto-save on input
+    document.addEventListener('input', saveData);
+    document.addEventListener('change', saveData);
+
+    // Load saved data on page load
+    window.addEventListener('load', loadData);
+  </script>
+
+</body>
+</html>
