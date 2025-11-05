@@ -32,7 +32,7 @@ A bilingual web page that helps children (ages 10-12) create personalized AI tut
 
 ## About This Project
 
-This project was created as part of [SevDesk's](https://sevdesk.de) 1% Pledge program, where each SevDesk employee can dedicate 3 days per year to work with non-profit organizations. This project was developed in collaboration with [ReDI School Berlin's Kids Program](https://www.redi-school.org/kids-and-teens-courses/berlin/dkp/digital-heroes-ninjas).
+This project was created as part of [SevDesk's](https://sevdesk.de) 1% time Pledge program, where each SevDesk employee can dedicate 3 days per year to work with non-profit organizations. This project was developed in collaboration with [ReDI School Berlin's Kids Program](https://www.redi-school.org/kids-and-teens-courses/berlin/dkp/digital-heroes-ninjas).
 
 ## License
 

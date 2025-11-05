@@ -59,6 +59,8 @@
     <h1 id="title">👩🏫 Dein Tutor-Systemprompt</h1>
     <button class="lang-toggle" onclick="toggleLanguage()">🌐 English</button>
   </div>
+  
+  <p id="subtitle" style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 2rem;">Erstelle deine personalisierten KI-Tutor-Prompts für spielerisches Lernen!</p>
 
   <div class="steps">
     <span class="step active" id="step1">1. Ausfüllen</span>
@@ -171,6 +173,16 @@ Es ist wie die eigene Crafting-Table der Natur — nur mit Sonnenlicht statt ein
     <button onclick="generatePrompt()" id="generate-btn">✨ Prompt erstellen</button>
   </div>
 
+  <div class="section" id="safety-section">
+    <h2 id="safety-title">🔒 Sicherheitsfeatures</h2>
+    <ul style="list-style: none; padding: 0;">
+      <li style="margin: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <span id="safety-1">Nur clientseitig - keine Daten werden an Server gesendet</span></li>
+      <li style="margin: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <span id="safety-2">Nur pädagogische Leitfäden</span></li>
+      <li style="margin: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <span id="safety-3">Leitet unangemessene Fragen an Eltern/Erwachsene weiter</span></li>
+      <li style="margin: 0.5rem 0; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <span id="safety-4">Altersgerechte Sprache und Anweisungen</span></li>
+    </ul>
+  </div>
+
   <div class="section hidden" id="prompt-section">
     <h2 id="prompt-title">📋 Dein personalisierter Prompt</h2>
     <pre id="prompt"></pre>
@@ -256,7 +268,13 @@ Es ist wie die eigene Crafting-Table der Natur — nur mit Sonnenlicht statt ein
         withPrompt: '✅ Mit Tutor-Prompt',
         demoQuestion: 'Frage: Was ist Photosynthese?',
         demoAnswerWithout: 'Hier ist die Grundidee:\nPflanzen nehmen auf —\n• Kohlendioxid (CO₂) aus der Luft\n• Wasser (H₂O) aus dem Boden\n• Lichtenergie von der Sonne\n\nUnd produzieren —\n• Glucose (C₆H₁₂O₆), die sie für Energie und Wachstum verwenden\n• Sauerstoff (O₂), der in die Luft abgegeben wird\n\nDie chemische Gesamtgleichung lautet:\n6CO₂ + 6H₂O + Lichtenergie → C₆H₁₂O₆ + 6O₂\n\nDieser Prozess findet hauptsächlich in den Chloroplasten der Pflanzenzellen statt, wo ein grüner Farbstoff namens Chlorophyll das Sonnenlicht einfängt.',
-        demoAnswerWith: '🎮 Stell dir vor:\nDu wanderst durch deine Minecraft-Welt und entdeckst viele hellgrüne Pflanzen. Aber weißt du was? Sie sitzen nicht nur da — sie arbeiten wie winzige solarbetriebene Fabriken!\n\nHier passiert das in ihnen:\n\n🌞 Sonnenlicht = Energie-Boost!\nDie Pflanze nutzt Sonnenlicht wie du Redstone-Energie — es ist die Energiequelle, die alles antreibt.\n\n💧 Wasser = Zutat #1\nDie Wurzeln "trinken" Wasser aus dem Boden (wie das Auffüllen einer Trank-Flasche).\n\n🍃 Kohlendioxid = Zutat #2\nDie Pflanze "atmet" Kohlendioxid aus der Luft ein — stell dir vor, sie sammelt unsichtbare Luft-Blöcke!\n\n⚗️ Das Crafting-Rezept!\nIn den Blättern mischt die Pflanze Sonnenlicht + Wasser + Kohlendioxid.\n🎉 Heraus kommt Glucose (eine Art Zucker = Nahrung für die Pflanze) und Sauerstoff (den wir atmen — juhu!).\n\nSo, in short:\n☀️ + 💧 + 🌬️ → 🍬 (Nahrung für die Pflanze) + 💨 (Sauerstoff für uns!)\n\nPretty cool, right?\nEs ist wie die eigene Crafting-Table der Natur — nur mit Sonnenlicht statt einem Crafting-Gitter!'
+        demoAnswerWith: '🎮 Stell dir vor:\nDu wanderst durch deine Minecraft-Welt und entdeckst viele hellgrüne Pflanzen. Aber weißt du was? Sie sitzen nicht nur da — sie arbeiten wie winzige solarbetriebene Fabriken!\n\nHier passiert das in ihnen:\n\n🌞 Sonnenlicht = Energie-Boost!\nDie Pflanze nutzt Sonnenlicht wie du Redstone-Energie — es ist die Energiequelle, die alles antreibt.\n\n💧 Wasser = Zutat #1\nDie Wurzeln "trinken" Wasser aus dem Boden (wie das Auffüllen einer Trank-Flasche).\n\n🍃 Kohlendioxid = Zutat #2\nDie Pflanze "atmet" Kohlendioxid aus der Luft ein — stell dir vor, sie sammelt unsichtbare Luft-Blöcke!\n\n⚗️ Das Crafting-Rezept!\nIn den Blättern mischt die Pflanze Sonnenlicht + Wasser + Kohlendioxid.\n🎉 Heraus kommt Glucose (eine Art Zucker = Nahrung für die Pflanze) und Sauerstoff (den wir atmen — juhu!).\n\nSo, in short:\n☀️ + 💧 + 🌬️ → 🍬 (Nahrung für die Pflanze) + 💨 (Sauerstoff für uns!)\n\nPretty cool, right?\nEs ist wie die eigene Crafting-Table der Natur — nur mit Sonnenlicht statt einem Crafting-Gitter!',
+        safetyTitle: '🔒 Sicherheitsfeatures',
+        safety1: 'Nur clientseitig - keine Daten werden an Server gesendet',
+        safety2: 'Nur pädagogische Leitfäden',
+        safety3: 'Leitet unangemessene Fragen an Eltern/Erwachsene weiter',
+        safety4: 'Altersgerechte Sprache und Anweisungen',
+        subtitle: 'Erstelle deine personalisierten KI-Tutor-Prompts für spielerisches Lernen!'
       },
       en: {
         title: '👩🏫 Your Tutor System Prompt',
@@ -301,7 +319,13 @@ Es ist wie die eigene Crafting-Table der Natur — nur mit Sonnenlicht statt ein
         withPrompt: '✅ With Tutor Prompt',
         demoQuestion: 'Question: What is photosynthesis?',
         demoAnswerWithout: 'Here\'s the basic idea:\nPlants take in —\n• Carbon dioxide (CO₂) from the air\n• Water (H₂O) from the soil\n• Light energy from the sun\n\nAnd produce —\n• Glucose (C₆H₁₂O₆), which they use for energy and growth\n• Oxygen (O₂), which is released into the air\n\nThe overall chemical equation is:\n6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂\n\nThis process mainly happens in the chloroplasts of plant cells, where a green pigment called chlorophyll captures the sunlight.',
-        demoAnswerWith: '🎮 Imagine this:\nYou\'re wandering through your Minecraft world, and you spot a bunch of bright green plants. But guess what? They\'re not just sitting there — they\'re working like tiny solar-powered factories!\n\nHere\'s what happens inside them:\n\n🌞 Sunlight = Energy boost!\nThe plant uses sunlight just like you\'d use Redstone power — it\'s the energy source that makes everything happen.\n\n💧 Water = Ingredient #1\nThe roots "drink" water from the ground (like filling up a potion bottle).\n\n🍃 Carbon dioxide = Ingredient #2\nThe plant "breathes in" carbon dioxide from the air — imagine it like collecting invisible air blocks!\n\n⚗️ The crafting recipe!\nInside the leaves, the plant mixes sunlight + water + carbon dioxide.\n🎉 Out pops glucose (a kind of sugar = food for the plant) and oxygen (which we breathe — yay!).\n\nSo, in short:\n☀️ + 💧 + 🌬️ → 🍬 (food for the plant) + 💨 (oxygen for us!)\n\nPretty cool, right?\nIt\'s like nature\'s own crafting table — just with sunlight instead of a crafting grid!'
+        demoAnswerWith: '🎮 Imagine this:\nYou\'re wandering through your Minecraft world, and you spot a bunch of bright green plants. But guess what? They\'re not just sitting there — they\'re working like tiny solar-powered factories!\n\nHere\'s what happens inside them:\n\n🌞 Sunlight = Energy boost!\nThe plant uses sunlight just like you\'d use Redstone power — it\'s the energy source that makes everything happen.\n\n💧 Water = Ingredient #1\nThe roots "drink" water from the ground (like filling up a potion bottle).\n\n🍃 Carbon dioxide = Ingredient #2\nThe plant "breathes in" carbon dioxide from the air — imagine it like collecting invisible air blocks!\n\n⚗️ The crafting recipe!\nInside the leaves, the plant mixes sunlight + water + carbon dioxide.\n🎉 Out pops glucose (a kind of sugar = food for the plant) and oxygen (which we breathe — yay!).\n\nSo, in short:\n☀️ + 💧 + 🌬️ → 🍬 (food for the plant) + 💨 (oxygen for us!)\n\nPretty cool, right?\nIt\'s like nature\'s own crafting table — just with sunlight instead of a crafting grid!',
+        safetyTitle: '🔒 Safety Features',
+        safety1: 'Client-side only - no data sent to servers',
+        safety2: 'Educational guidance prompts only',
+        safety3: 'Redirects inappropriate questions to parents/adults',
+        safety4: 'Age-appropriate language and instructions',
+        subtitle: 'Create your personalized AI tutor prompts, for learning in a fun way!'
       }
     };
 
@@ -352,6 +376,16 @@ Es ist wie die eigene Crafting-Table der Natur — nur mit Sonnenlicht statt ein
       document.getElementById('demo-question-2').textContent = t.demoQuestion;
       document.getElementById('demo-answer-without').innerHTML = t.demoAnswerWithout.replace(/\n/g, '<br>');
       document.getElementById('demo-answer-with').innerHTML = t.demoAnswerWith.replace(/\n/g, '<br>');
+      
+      // Update safety section
+      document.getElementById('safety-title').textContent = t.safetyTitle;
+      document.getElementById('safety-1').textContent = t.safety1;
+      document.getElementById('safety-2').textContent = t.safety2;
+      document.getElementById('safety-3').textContent = t.safety3;
+      document.getElementById('safety-4').textContent = t.safety4;
+      
+      // Update subtitle
+      document.getElementById('subtitle').textContent = t.subtitle;
       
       // Update instruction lists
       document.getElementById('chatgpt-steps').innerHTML = t.chatgptSteps;
@@ -478,7 +512,7 @@ SCHÜLER-PERSONA (DEINE ANGABEN AUSFÜLLEN):
   </script>
 
   <footer style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #ddd; font-size: 0.85rem; color: #666; text-align: center;">
-    <p>This project was created as part of <a href="https://sevdesk.de" target="_blank">SevDesk's</a> 1% Pledge program, where each SevDesk employee can dedicate 3 days per year to work with non-profit organizations. This project was developed in collaboration with <a href="https://www.redi-school.org/kids-and-teens-courses/berlin/dkp/digital-heroes-ninjas" target="_blank">ReDI School Berlin's Kids Program</a>.</p>
+    <p>This project was created as part of <a href="https://sevdesk.de" target="_blank">SevDesk's</a> 1% Time Pledge program, where each SevDesk employee can dedicate 3 days per year to work with non-profit organizations. This project was developed in collaboration with <a href="https://www.redi-school.org/kids-and-teens-courses/berlin/dkp/digital-heroes-ninjas" target="_blank">ReDI School Berlin's Kids Program</a>.</p>
   </footer>
 
 </body>
